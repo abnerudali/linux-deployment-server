@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Deployments{% endblock %}
+
+{% block content %}
+<h1>Deployment Reports</h1>
+
+<section class="panel">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Distro</th>
+        <th>Target</th>
+        <th>Status</th>
+        <th>Exit Code</th>
+        <th>Started</th>
+        <th>Ended</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for job in jobs %}
+      <tr>
+        <td>{{ job['id'] }}</td>
+        <td>{{ job['distro'] }}</td>
+        <td>{{ job['target_host'] }}</td>
+        <td><span class="badge status-{{ job['status'] }}">{{ job['status'] }}</span></td>
+        <td>{{ job['exit_code'] if job['exit_code'] is not none else '-' }}</td>
+        <td>{{ job['started_at'] or '-' }}</td>
+        <td>{{ job['ended_at'] or '-' }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="7">No job records found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

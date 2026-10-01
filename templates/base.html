@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Linux Deployment Server{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <div class="brand">Linux Deployment Server</div>
+      <nav>
+        <a href="/">Dashboard</a>
+        <a href="/deployments">Deployments</a>
+        <a href="/inventory">Inventory</a>
+        <a href="/reports">Reports</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

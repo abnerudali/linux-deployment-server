@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1>Operations Dashboard</h1>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="label">Queued</div>
+    <div class="value">{{ summary.get('queued', 0) }}</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Running</div>
+    <div class="value">{{ summary.get('running', 0) }}</div>
+  </div>
+  <div class="stat-card success">
+    <div class="label">Success</div>
+    <div class="value">{{ summary.get('success', 0) }}</div>
+  </div>
+  <div class="stat-card danger">
+    <div class="label">Failed</div>
+    <div class="value">{{ summary.get('failed', 0) }}</div>
+  </div>
+</div>
+
+<section class="panel">
+  <h2>Recent Deployments</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Distro</th>
+        <th>Target</th>
+        <th>Status</th>
+        <th>Started</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for job in jobs %}
+      <tr>
+        <td>{{ job['id'] }}</td>
+        <td>{{ job['distro'] }}</td>
+        <td>{{ job['target_host'] }}</td>
+        <td><span class="badge status-{{ job['status'] }}">{{ job['status'] }}</span></td>
+        <td>{{ job['started_at'] or job['created_at'] }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5">No deployments yet.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

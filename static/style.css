@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Inventory{% endblock %}
+
+{% block content %}
+<h1>System Inventory</h1>
+
+<section class="panel">
+  <table>
+    <thead>
+      <tr>
+        <th>Hostname</th>
+        <th>Distro</th>
+        <th>IP</th>
+        <th>Status</th>
+        <th>Last Seen</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in inventory %}
+      <tr>
+        <td>{{ item['hostname'] }}</td>
+        <td>{{ item['distro'] or 'unknown' }}</td>
+        <td>{{ item['ip_address'] }}</td>
+        <td><span class="badge status-{{ item['status'] }}">{{ item['status'] }}</span></td>
+        <td>{{ item['last_seen'] }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5">No inventory entries available.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}
